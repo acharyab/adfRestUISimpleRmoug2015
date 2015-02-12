@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.1.3.2.36" id="studentsPageDef"
+                Package="view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Type="java.lang.String" Name="ExecuteWithParams_id" IsQueriable="false"/>
+    </variableIterator>
+    <iterator Binds="root" RangeSize="25" DataControl="StudentClient" id="StudentClientIterator"/>
+    <accessorIterator MasterBinding="StudentClientIterator" Binds="studentsForClass" RangeSize="25"
+                      DataControl="StudentClient" BeanClass="model.Student" id="studentsForClassIterator"/>
+  </executables>
+  <bindings>
+    <action IterBinding="studentsForClassIterator" id="ExecuteWithParams" RequiresUpdateModel="true"
+            Action="executeWithParams">
+      <NamedData NDName="id" NDType="java.lang.String" NDValue="${bindings.ExecuteWithParams_id}"/>
+    </action>
+    <attributeValues IterBinding="variables" id="id">
+      <AttrNames>
+        <Item Value="ExecuteWithParams_id"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="studentsForClassIterator" id="studentsForClass">
+      <nodeDefinition DefName="model.Student" Name="studentsForClass0">
+        <AttrNames>
+          <Item Value="name"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

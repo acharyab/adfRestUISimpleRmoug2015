@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:document title="students.jsf" id="d1">
+        <af:messages id="m1"/>
+        <af:form id="f1">
+            <af:panelFormLayout id="pfl1">
+                <af:inputText value="#{bindings.id.inputValue}" label="#{bindings.id.hints.label}"
+                              required="#{bindings.id.hints.mandatory}" columns="#{bindings.id.hints.displayWidth}"
+                              maximumLength="#{bindings.id.hints.precision}" shortDesc="#{bindings.id.hints.tooltip}"
+                              id="it1">
+                    <f:validator binding="#{bindings.id.validator}"/>
+                </af:inputText>
+                <af:button actionListener="#{bindings.ExecuteWithParams.execute}" text="ExecuteWithParams"
+                           disabled="#{!bindings.ExecuteWithParams.enabled}" id="b1"/>
+                  <af:table value="#{bindings.studentsForClass.collectionModel}" var="row"
+                          rows="#{bindings.studentsForClass.rangeSize}"
+                          emptyText="#{bindings.studentsForClass.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.studentsForClass.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.studentsForClass.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.studentsForClass.rangeSize}" id="t1"
+                          partialTriggers="::b1" width="242" inlineStyle="height:88px;">
+                    <af:column headerText="#{bindings.studentsForClass.hints.name.label}" id="c1" width="200">
+                        <af:outputText value="#{row.name}" shortDesc="#{bindings.studentsForClass.hints.name.tooltip}"
+                                       id="ot1"/>
+                    </af:column>
+                </af:table>
+            </af:panelFormLayout>
+        </af:form>
+    </af:document>
+</f:view>
